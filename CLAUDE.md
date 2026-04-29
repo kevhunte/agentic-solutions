@@ -65,7 +65,7 @@ src/
 ## Dev Server
 
 ```bash
-npm run dev   # → http://localhost:3000/agentic-solutions/
+npm run dev   # → http://localhost:3000/
 ```
 
 ## Build & Deploy
@@ -76,4 +76,4 @@ npm run build   # outputs to dist/
 
 Pushes to `main` automatically deploy via `.github/workflows/deploy.yml`.
 
-**Live URL:** https://kevhunte.github.io/agentic-solutions/
+**Live URL:** https://agenticsolutions.cc
