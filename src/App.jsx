@@ -69,26 +69,59 @@ function Logo() {
   );
 }
 
+const NAV_LINKS = ["Products", "Who We Serve", "About", "Contact"];
+
 function Nav({ scrolled }) {
+  const [menuOpen, setMenuOpen] = useState(false);
+  const close = () => setMenuOpen(false);
   return (
     <nav style={{
       position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
-      background: scrolled ? "rgba(8,10,15,0.88)" : "transparent",
-      backdropFilter: scrolled ? "blur(20px)" : "none",
-      borderBottom: scrolled ? `1px solid ${C.border}` : "1px solid transparent",
+      background: scrolled || menuOpen ? "rgba(8,10,15,0.97)" : "transparent",
+      backdropFilter: scrolled || menuOpen ? "blur(20px)" : "none",
+      borderBottom: scrolled || menuOpen ? `1px solid ${C.border}` : "1px solid transparent",
       transition: "all .3s",
       padding: "0 max(1.5rem, calc(50vw - 660px))",
     }}>
       <div className="nav-inner">
-        <a href="#" onClick={e => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }} style={{ lineHeight: 0 }}>
+        <a href="#" onClick={e => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); close(); }} style={{ lineHeight: 0 }}>
           <Logo />
         </a>
         <div className="nav-spacer" />
-        {["Products", "Who We Serve", "About", "Contact"].map(l => (
-          <NavLink key={l} href={`#${l.toLowerCase().replace(/ /g, "-")}`}>{l}</NavLink>
-        ))}
-        <Btn href="#products" primary>Explore products</Btn>
+        <div className="nav-links">
+          {NAV_LINKS.map(l => (
+            <NavLink key={l} href={`#${l.toLowerCase().replace(/ /g, "-")}`}>{l}</NavLink>
+          ))}
+          <Btn href="#products" primary>Explore products</Btn>
+        </div>
+        <button
+          className="nav-hamburger"
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
+          onClick={() => setMenuOpen(o => !o)}
+        >
+          {menuOpen
+            ? <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M4 4l12 12M16 4L4 16" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round"/></svg>
+            : <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round"/></svg>
+          }
+        </button>
       </div>
+      {menuOpen && (
+        <div className="nav-mobile-menu">
+          {NAV_LINKS.map(l => (
+            <a
+              key={l}
+              href={`#${l.toLowerCase().replace(/ /g, "-")}`}
+              className="nav-mobile-link"
+              onClick={close}
+            >
+              {l}
+            </a>
+          ))}
+          <div className="nav-mobile-cta">
+            <Btn href="#products" primary onClick={close}>Explore products</Btn>
+          </div>
+        </div>
+      )}
     </nav>
   );
 }
