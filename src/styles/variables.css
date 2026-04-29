@@ -1,0 +1,23 @@
+:root {
+  /* Colors */
+  --color-bg: #080a0f;
+  --color-surface: #0f1117;
+  --color-surface-alt: #13161e;
+  --color-border: rgba(255, 255, 255, 0.06);
+  --color-border-hover: rgba(255, 255, 255, 0.12);
+  --color-accent: #5b8dee;
+  --color-accent-soft: rgba(91, 141, 238, 0.12);
+  --color-accent-glow: rgba(91, 141, 238, 0.22);
+  --color-teal: #34d399;
+  --color-teal-soft: rgba(52, 211, 153, 0.1);
+  --color-teal-border: rgba(52, 211, 153, 0.25);
+  --color-purple: #a78bfa;
+  --color-purple-soft: rgba(167, 139, 250, 0.1);
+  --color-text: #edf0f7;
+  --color-muted: #7c8494;
+  --color-dim: #3d4251;
+
+  /* Fonts */
+  --font-display: 'DM Serif Display', serif;
+  --font-sans: 'DM Sans', sans-serif;
+}
