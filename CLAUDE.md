@@ -56,6 +56,12 @@ src/
 - **Dynamic styles** (hover transforms, prop-driven colors) → inline `style` prop using `C`/`F` references
 - **Hover color changes** on simple links → CSS `:hover` in `app.css`, no JS needed
 
+## Git Workflow
+
+- **Never commit directly to `main`.** Always create a feature branch for any change, no matter how small.
+- Branch naming: `feature/<short-description>` (e.g. `feature/footer-fixes`, `feature/new-product-card`)
+- Work and commit on the feature branch locally. When the work is complete, squash all commits on the branch into one, merge into `main` locally, and push `main`. Do not push feature branches to the remote.
+
 ## Dev Server
 
 ```bash
