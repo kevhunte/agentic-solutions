@@ -80,7 +80,9 @@ function Nav({ scrolled }) {
       padding: "0 max(1.5rem, calc(50vw - 660px))",
     }}>
       <div className="nav-inner">
-        <Logo />
+        <a href="#" onClick={e => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }} style={{ lineHeight: 0 }}>
+          <Logo />
+        </a>
         <div className="nav-spacer" />
         {["Products", "Who We Serve", "About", "Contact"].map(l => (
           <NavLink key={l} href={`#${l.toLowerCase().replace(/ /g, "-")}`}>{l}</NavLink>
@@ -249,6 +251,30 @@ const audiences = [
   },
 ];
 
+function ServeCard({ label, icon, color, soft, headline, desc, status }) {
+  const [h, setH] = useState(false);
+  return (
+    <div
+      className="serve-card"
+      style={{
+        borderColor: h ? color : C.border,
+        transform: h ? "translateY(-2px)" : "none",
+        boxShadow: h ? `0 0 40px ${soft}` : "none",
+      }}
+      onMouseEnter={() => setH(true)}
+      onMouseLeave={() => setH(false)}
+    >
+      <div className="serve-card-icon" style={{ background: soft, color }}>{icon}</div>
+      <div className="serve-card-meta">
+        <Tag color={color} bg={soft}>{label}</Tag>
+        {status === "soon" && <span className="serve-card-soon">Coming soon</span>}
+      </div>
+      <h3 className="serve-card-headline">{headline}</h3>
+      <p className="serve-card-desc">{desc}</p>
+    </div>
+  );
+}
+
 function WhoWeServe() {
   return (
     <section id="who-we-serve" className="section-pad section-border-top">
@@ -256,22 +282,7 @@ function WhoWeServe() {
       <h2 className="section-h2">Three audiences. One standard.</h2>
       <p className="section-sub">Every product we build serves at least one of these groups — often all three.</p>
       <div className="serve-grid">
-        {audiences.map(a => (
-          <div
-            key={a.label}
-            className="serve-card"
-            onMouseEnter={e => e.currentTarget.style.borderColor = C.borderHover}
-            onMouseLeave={e => e.currentTarget.style.borderColor = C.border}
-          >
-            <div className="serve-card-icon" style={{ background: a.soft, color: a.color }}>{a.icon}</div>
-            <div className="serve-card-meta">
-              <Tag color={a.color} bg={a.soft}>{a.label}</Tag>
-              {a.status === "soon" && <span className="serve-card-soon">Coming soon</span>}
-            </div>
-            <h3 className="serve-card-headline">{a.headline}</h3>
-            <p className="serve-card-desc">{a.desc}</p>
-          </div>
-        ))}
+        {audiences.map(a => <ServeCard key={a.label} {...a} />)}
       </div>
     </section>
   );
@@ -345,9 +356,6 @@ function Footer() {
   return (
     <footer className="footer">
       <Logo />
-      <a href="https://thecookbook.up.railway.app/" className="footer-link">
-        The Cookbook
-      </a>
       <span className="footer-copyright">© 2026 Agentic Solutions LLC · New York, NY</span>
     </footer>
   );
